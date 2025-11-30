@@ -44,6 +44,7 @@ export default function ITAdminParticipants() {
   const [modalSchools, setModalSchools] = useState([]);
   const [modalEvents, setModalEvents] = useState([]);
   const [computingEvents, setComputingEvents] = useState(false);
+  const [anchorId, setAnchorId] = useState("");
 
   // Initialize filters from query string (supports links from Overview)
   useEffect(() => {
@@ -110,9 +111,22 @@ export default function ITAdminParticipants() {
 
   useEffect(() => { load(); }, [scope, districtId, schoolName, eventId, present, frozen, gender, group, q]);
 
+  useEffect(() => {
+    if (!anchorId) return;
+    // Defer to allow DOM to render
+    const t = setTimeout(() => {
+      const el = document.getElementById(`row-${anchorId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 50);
+    return () => clearTimeout(t);
+  }, [items, anchorId]);
+
   const onTogglePresent = async (row) => {
     if (row.frozen) return;
     try {
+      setAnchorId(String(row._id));
       await itUpdateParticipant(row._id, { source: row.source, updates: { present: !row.present } });
       await load();
     } catch {}
@@ -155,6 +169,7 @@ export default function ITAdminParticipants() {
   if (!formValues) return;
 
   try {
+    setAnchorId(String(row._id));
     const resp = await itUpdateParticipant(row._id, { source: row.source, updates: formValues });
     const updated = resp?.participant ? { ...row, ...resp.participant } : { ...row, ...formValues };
     setItems((prev) => (prev || []).map((it) => (
@@ -191,6 +206,7 @@ export default function ITAdminParticipants() {
 
   const onToggleFreezeRow = async (row) => {
     try {
+      setAnchorId(String(row._id));
       await itUpdateParticipant(row._id, { source: row.source, updates: { frozen: !row.frozen } });
       await load();
     } catch {}
@@ -369,8 +385,26 @@ export default function ITAdminParticipants() {
           const sName = schoolObj?.schoolName || addSchoolName || "";
           setAddSchoolName(sName);
           const existing = Array.isArray(await itListParticipants({ scope: 'school', districtId: addDistrictId, schoolName: sName })) ? await itListParticipants({ scope: 'school', districtId: addDistrictId, schoolName: sName }) : [];
+          const countsByEvent = existing.reduce((acc, p) => {
+            const id = String(p.eventId || p.event || p._id || "");
+            if (!id) return acc;
+            acc[id] = (acc[id] || 0) + 1;
+            return acc;
+          }, {});
           const filledEventIds = new Set(existing.map((p) => String(p.eventId || p.event || p._id)));
-          const available = all.filter((e) => !filledEventIds.has(String(e._id)));
+          const available = all.filter((e) => {
+            const id = String(e._id);
+            // If no participant yet, event is available
+            if (!filledEventIds.has(id)) return true;
+            // For group events, allow selection until participantCount is reached
+            const isGroup = !!e.isGroupEvent && typeof e.participantCount === 'number' && e.participantCount >= 2;
+            if (isGroup) {
+              const used = countsByEvent[id] || 0;
+              return used < e.participantCount;
+            }
+            // Non-group events remain one-participant only
+            return false;
+          });
           setModalEvents(available);
         } else if (addType === "district") {
           if (!addDistrictId) { setComputingEvents(false); return; }
@@ -515,7 +549,7 @@ export default function ITAdminParticipants() {
               </thead>
               <tbody>
                 {filtered.length ? filtered.map((r, i) => (
-                  <tr key={r._id} style={{ backgroundColor: r.present ? '#b5d6a7' : 'transparent' }}>
+                  <tr key={r._id} id={`row-${r._id}`} style={{ backgroundColor: r.present ? '#b5d6a7' : 'transparent' }}>
                     <td>{i + 1}</td>
                     <td>{r.name}</td>
                     <td>{r.className || "-"}</td>

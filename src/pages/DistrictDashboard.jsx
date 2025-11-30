@@ -745,8 +745,8 @@ export default function DistrictDashboard() {
                   <td style={S.td}>
                     <Select value={row.gender || ""} onChange={(e) => setTGrid(idx, "gender", e.target.value)}>
                       <option value="">Select gender</option>
-                      <option value="boy">Boy</option>
-                      <option value="girl">Girl</option>
+                      <option value="boy">Gents</option>
+                      <option value="girl">Ladies</option>
                     </Select>
                   </td>
                   <td style={S.td}>

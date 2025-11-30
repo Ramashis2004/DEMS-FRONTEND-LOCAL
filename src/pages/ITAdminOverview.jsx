@@ -413,13 +413,13 @@ export default function ITAdminOverview() {
               <div className="card-header">
                 <h3 style={{ margin: 0 }}>Yet to Report</h3>
                 <div style={{ display: 'flex', gap: 8 }}>
-                  <button className="btn ghost" onClick={() => {
+                  {/* <button className="btn ghost" onClick={() => {
                     const sp = new URLSearchParams();
                     if (districtId) sp.set('districtId', districtId);
                     if (eventId) sp.set('eventId', eventId);
                     sp.set('present','false');
                     window.location.assign(`/it-admin/reports/participants?${sp.toString()}`);
-                  }}>View All</button>
+                  }}>View All</button> */}
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -482,7 +482,7 @@ export default function ITAdminOverview() {
               <div className="card-header">
                 <h3 style={{ margin: 0 }}>Students Yet to Report</h3>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <button className="btn ghost" onClick={() => {
+                  {/* <button className="btn ghost" onClick={() => {
                     const sp = new URLSearchParams();
                     if (districtId) sp.set('districtId', districtId);
                     if (eventId) sp.set('eventId', eventId);
@@ -497,7 +497,7 @@ export default function ITAdminOverview() {
                     sp.set('present','false');
                     sp.set('scope','district');
                     window.location.assign(`/it-admin/reports/participants?${sp.toString()}`);
-                  }}>View District List</button>
+                  }}>View District List</button> */}
                 </div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
