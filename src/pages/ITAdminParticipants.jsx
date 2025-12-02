@@ -229,13 +229,13 @@ export default function ITAdminParticipants() {
   const toCSV = () => {
     const header = [
       "Sl.No",
+      "District",
+      "School",
       "Name",
-      "Class",
       "Gender",
+      "Class",
       "Event",
       "Group",
-      "School",
-      "District",
       "Present",
       "Frozen",
     ];
@@ -535,13 +535,13 @@ export default function ITAdminParticipants() {
               <thead>
                 <tr>
                   <th>Sl.No</th>
+                  <th>District</th>
+                  <th>School</th>
                   <th>Name</th>
-                  <th>Class</th>
                   <th>Gender</th>
+                  <th>Class</th>
                   <th>Event</th>
                   <th>Group</th>
-                  <th>School</th>
-                  <th>District</th>
                   <th>Present</th>
                   <th>Frozen</th>
                   <th>Actions</th>
@@ -551,13 +551,13 @@ export default function ITAdminParticipants() {
                 {filtered.length ? filtered.map((r, i) => (
                   <tr key={r._id} id={`row-${r._id}`} style={{ backgroundColor: r.present ? '#b5d6a7' : 'transparent' }}>
                     <td>{i + 1}</td>
-                    <td>{r.name}</td>
-                    <td>{r.className || "-"}</td>
-                    <td>{r.gender || "-"}</td>
-                    <td>{r.eventTitle || '-'}</td>
-                    <td>{r.source === "school" ? (r.group || "-") : "-"}</td>
-                    <td>{r.schoolName || "-"}</td>
                     <td>{r.districtName || '-'}</td>
+                    <td>{r.schoolName || "-"}</td>
+                    <td>{r.name}</td>
+                    <td>{r.gender==="boy"?"Boy":"Girl" || "-"}</td>
+                    <td>{r.className || "-"}</td>
+                    <td>{r.eventTitle || '-'}</td>
+                    <td>{r.source === "school" ? (r.group==="senior"?"Senior":"Junior" || "-") : "-"}</td>
                     <td>
                       <input type="checkbox" checked={!!r.present} disabled={!!r.frozen} onChange={() => onTogglePresent(r)} />
                     </td>
