@@ -140,8 +140,8 @@ export default function ITAdminParticipants() {
       <input id="swal-name" class="swal2-input" placeholder="Name" value="${row.name || ""}">
       <input id="swal-class" class="swal2-input" placeholder="Class" value="${row.className || ""}">
 
-      <div style="text-align:left; margin-top:10px;">
-        <label><strong>Gender:</strong></label><br>
+      <div style="text-align:left; margin-top:10px;margin-left:82px">
+        <label><strong>Gender:</strong></label>
 
         <label style="margin-right:15px;">
           <input type="radio" name="swal-gender" value="boy" 
@@ -566,7 +566,24 @@ export default function ITAdminParticipants() {
                     </td>
                     <td>
                       <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
-                        <button className="btn small" onClick={() => onEdit(r)} disabled={!!r.frozen}>Edit</button>
+                        <button
+  onClick={() => onEdit(r)}
+  disabled={!!r.frozen}
+  style={{
+    fontSize: "13px",
+    marginLeft: "6px",
+    background: "white",
+    color: "#0077b6",
+    textDecoration: "none",
+    fontWeight: "bold",
+    borderRadius: "6px",
+    transition: "0.3s",
+    cursor: "pointer",
+  }}
+>
+  Edit
+</button>
+
                       </div>
                     </td>
                   </tr>

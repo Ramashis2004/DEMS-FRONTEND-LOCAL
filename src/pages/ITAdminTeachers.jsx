@@ -609,6 +609,15 @@ export default function ITAdminTeachers() {
       margin-bottom: 5px;
       font-weight: 600;
     }
+      div.swal2-container .swal2-input,
+div.swal2-container .swal2-file,
+div.swal2-container .swal2-textarea,
+div.swal2-container .swal2-select,
+div.swal2-container .swal2-radio,
+div.swal2-container .swal2-checkbox {
+  margin: 0 !important;
+}
+
     .swal2-select {
       width: 100%;
       padding: 8px;
@@ -714,7 +723,26 @@ export default function ITAdminTeachers() {
                     </td>
                     <td>
                       <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
-                        <button className="btn small" onClick={() => onEdit(r)} disabled={!!r.frozen}>Edit</button>
+<button
+  onClick={() => onEdit(r)}
+  disabled={!!r.frozen}
+  style={{
+    fontSize: "13px",
+    marginLeft: "6px",
+    background: "white",
+    color: "#0077b6",
+    textDecoration: "none",
+    fontWeight: "bold",
+    borderRadius: "6px",
+    transition: "0.3s",
+    padding: "4px 10px",
+    border: "1px solid #0077b6",
+    cursor: r.frozen ? "not-allowed" : "pointer",
+  }}
+>
+  Edit
+</button>
+
                       </div>
                     </td>
                   </tr>
