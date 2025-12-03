@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Sidebar({ items = [], activeKey, onSelectItem, title = "DEMS", collapsed = false }) {
+export default function Sidebar({ items = [], activeKey, onSelectItem, title = "Sri Sathya Sai Festivals", collapsed = false }) {
   return (
     <aside
     style={{
