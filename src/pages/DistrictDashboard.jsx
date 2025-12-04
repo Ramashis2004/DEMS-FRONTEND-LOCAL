@@ -604,7 +604,7 @@ export default function DistrictDashboard() {
   };
 
   const addTeacherRow = () => {
-    setTeachersGrid((prev) => [...prev, { member: "mc_member", name: "", mobile: "", gender: "" }]);
+    setTeachersGrid((prev) => [...prev, { member: "dist_president", name: "", mobile: "", gender: "" }]);
     setTeachersDirty(true);
   };
   const removeTeacherRow = async(idx) => {
@@ -834,6 +834,7 @@ export default function DistrictDashboard() {
                         onChange={(e) => setTGrid(idx, "member", e.target.value)}
                         style={{ width: '100%', minWidth: '100%' }}
                       >
+                        
                         <option value="dist_president">Dist President</option>
                         <option value="dist_edu_coordinator_gents">Edu-Coord (Gents)</option>
                         <option value="dist_edu_coordinator_ladies">Edu-Coord (Ladies)</option>
@@ -874,7 +875,7 @@ export default function DistrictDashboard() {
         </div>
         <div style={{ display: "flex", flexDirection: { xs: 'column-reverse', sm: 'row' }, justifyContent: "space-between", alignItems: { xs: 'stretch', sm: 'center' }, marginTop: 16, gap: 12 }}>
           <div>
-            <Button onClick={addTeacherRow} style={{ backgroundColor: '#f0fdf4', color: '#166534', borderColor: '#bbf7d0', '&:hover': { backgroundColor: '#dcfce7' }, width: { xs: '100%', sm: 'auto' } }}>+ Add New Guru</Button>
+            <Button onClick={addTeacherRow} style={{ backgroundColor: '#f0fdf4', color: '#166534', borderColor: '#bbf7d0', '&:hover': { backgroundColor: '#dcfce7' }, width: { xs: '100%', sm: 'auto' } }}>+ Add New </Button>
           </div>
           <div style={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 10 }}>
             <Button onClick={() => { setTeachersGrid([{ member: "secretary_manager", name: "", mobile: "", gender: "" }]); setTFormKey(prev => prev + 1); try { localStorage.removeItem(LS_TEACHERS_KEY); } catch(_) {} }} style={{ borderColor: '#e2e8f0', '&:hover': { backgroundColor: '#f8fafc' } }}>Reset All</Button>
