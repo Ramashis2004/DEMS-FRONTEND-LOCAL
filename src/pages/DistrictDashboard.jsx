@@ -665,11 +665,13 @@ export default function DistrictDashboard() {
         });
         await Promise.all(apiCalls);
       } catch (e) {
-        Swal.showValidationMessage("Failed to save. Please try again.");
-        throw e;
+   const msg = e?.response?.data?.message || "Failed to save. Please try again.";
+    Swal.showValidationMessage(msg);    // 🔥 Show actual API error
+    setSavingTeachers(false);             // 🛑 stop loader
+    return false; 
       } finally {
-        setSavingTeachers(false);
-      }
+      setSavingTeachers(false);
+    }
     },
   });
 
